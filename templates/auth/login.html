@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center mb-3 p-4 container bg-info-subtle">
+    <h1 class="mb-3">Login page!</h1>
+    <div >
+        <form method="post" class="d-flex flex-column">
+            
+            <label class="text-bold fs-4 mb-1" for="email">Enter your email:</label>
+            <input type="email" name="email" placeholder="Ramesh@email.com etc." class="p-2 rounded-2 outline-none mb-2">
+
+            <label class="text-bold fs-4 mb-1" for="password">Set a password:</label>
+            <input type="password" name="password" placeholder="******" class="p-2 rounded-2 outline-none mb-2">
+
+            <input type="submit" value="Login" class="rounded-2 p-2 border-none bg-primary">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
