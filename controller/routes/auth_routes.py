@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template,request,url_for,redirect,flash, session
 from controller.models import User
 from controller.database import db
+import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint(
@@ -27,6 +28,12 @@ def signup():
         
         if passwd != conf_passwd:
             flash("Both passwords should match each other", "warning")
+            return redirect(url_for("auth.signup"))
+        
+        email_pattern = r"^[^@]+@[^@]+\.[^@]+$"
+
+        if not re.match(email_pattern, email):
+            flash("Please enter a valid email address", "danger")
             return redirect(url_for("auth.signup"))
 
         existing_user = User.query.filter_by(email=email).first()

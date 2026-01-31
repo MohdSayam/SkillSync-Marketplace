@@ -9,27 +9,11 @@
     {% endblock %}
 </head>
 <body class="bg-body">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3 border border-bottom">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('home')}} ">TalentSync</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('home')}}">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{{url_for('auth.signup')}}">Signup</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
+    {% if session.get("user_id") %}
+        {% include "components/navbar_private.html" %}
+    {% else %}
+        {% include "components/navbar_public.html" %}  
+    {% endif %}      
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

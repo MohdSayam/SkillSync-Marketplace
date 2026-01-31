@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" href=" {{ url_for('admin.dashboard') }} ">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#privateNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="privateNavbar">
+      <!-- Left side links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if session.get("user_role") == "Admin" %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Admin Panel</a>
+          </li>
+        {% elif session.get("user_role") == "Client" %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('client.dashboard') }}">Client Panel</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('freelancer.dashboard') }}">Freelancer Panel</a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <!-- Right side logout -->
+      <form action="{{ url_for('auth.logout') }}" method="post" class="d-flex">
+        <button type="submit" class="btn btn-outline-light btn-sm">
+          Logout
+        </button>
+      </form>
+
+    </div>
+  </div>
+</nav>

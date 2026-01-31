@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>You are on admin dashboard</h1>
-    <form action="{{ url_for('auth.logout') }}" method="post" style="display:inline;">
-        <button type="submit">Logout</button>
-    </form>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1>You are on admin dashboard</h1>
+{% endblock %}
+
