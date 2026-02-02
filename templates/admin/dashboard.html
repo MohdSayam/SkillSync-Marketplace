@@ -3,6 +3,15 @@
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-<h1>You are on admin dashboard</h1>
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_admin.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <h1 class="mt-3">Admin Dashboard</h1>
+            <p>Welcome, Admin.</p>
+        </main>
+    </div>
+</div>
 {% endblock %}
 

@@ -1,0 +1,40 @@
+{% extends "admin/dashboard.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_admin.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="d-flex flex-column justify-content-center align-items-center mb-3 p-4 container bg-info-subtle">
+                <h2 class="mt-3 mb-3">Create Client Form</h2>
+        <div >
+                <form method="post" class="d-flex flex-column">
+                    <label class="text-bold fs-4 mb-1" for="username">Enter name:</label>
+                    <input type="text" name="username" placeholder="Ramesh Jain etc." class="p-2 rounded-2 outline-none mb-2">
+                    
+                    <label class="text-bold fs-4 mb-1" for="email">Set email:</label>
+                    <input type="email" name="email" placeholder="Ramesh@email.com etc." class="p-2 rounded-2 outline-none mb-2">
+
+                    <label class="text-bold fs-4 mb-1" for="password">Set a password:</label>
+                    <input type="password" name="password" placeholder="******" class="p-2 rounded-2 outline-none mb-2">
+
+                    <label class="text-bold fs-4 mb-1" for="industry">Industry Name:</label>
+                    <input type="text" name="industry" placeholder="Tech.." class="p-2 rounded-2 outline-none mb-2">
+ 
+                    <label class="text-bold fs-4 mb-1" for="company">Comapany Name</label>
+                    <input type="text" name="company" placeholder="Google" class="p-2 rounded-2 outline-none mb-2">
+ 
+                    <label class="text-bold fs-4 mb-1" for="description">Description</label>
+                    <textarea name="description" cols="5" rows="8"  placeholder="Description about the client.." id="description"></textarea>
+
+                    <input type="submit" class="bg-primary mt-2 p-2 rounded" value="Create Client">
+ 
+                </form>
+            </div>
+        </div>
+             <a href="{{ url_for('admin.clients') }}">Go Back</a>
+        </main>
+    </div>
+</div>
+{% endblock %}

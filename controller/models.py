@@ -36,11 +36,6 @@ class Client(db.Model):
     company_name  = db.Column(db.String(150), nullable=False)
     industry  = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text)
-    approval_status = db.Column(
-        db.Enum("pending", "approved", name="client_status"),
-        default="pending",
-        nullable=False
-    )
 
     user = db.relationship("User", back_populates="client_profile")
     gigs = db.relationship(
