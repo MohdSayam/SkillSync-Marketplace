@@ -4,7 +4,7 @@ from controller.models import User
 
 from werkzeug.security import generate_password_hash
 
-ADMIN_EMAIL="admin@super.com"
+ADMIN_EMAIL="admin@skillsync.com"
 ADMIN_USERNAME="admin"
 ADMIN_PASSWORD="admin123"
 
