@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Gigs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_freelancer.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h2>Available Gigs</h2>
+            </div>
+
+            {% if gigs %}
+            <div class="row">
+                {% for gig in gigs %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ gig.title }}</h5>
+                            <p class="card-text">{{ gig.description[:100] }}{% if gig.description|length > 100 %}...{%
+                                endif %}</p>
+                            <p class="mb-1"><strong>Budget:</strong> ₹{{ gig.budget }}</p>
+                            <p class="mb-1"><strong>Client:</strong> {{ gig.client.company_name }}</p>
+                            <hr>
+                            {% if gig.id in applied_gig_ids %}
+                            <button class="btn btn-secondary btn-sm" disabled>Already Applied</button>
+                            {% else %}
+                            <a href="{{ url_for('freelancer.apply_to_gig', gig_id=gig.id) }}"
+                                class="btn btn-primary btn-sm">Apply Now</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                No active gigs available at the moment. Check back later!
+            </div>
+            {% endif %}
+        </main>
+    </div>
+</div>
+{% endblock %}

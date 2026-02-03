@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Applications{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_client.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h2>Applications Received</h2>
+            </div>
+
+            {% if applications %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Freelancer</th>
+                            <th>Email</th>
+                            <th>Gig</th>
+                            <th>Proposal</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in applications %}
+                        <tr>
+                            <td>{{ app.freelancer.username }}</td>
+                            <td>{{ app.freelancer.email }}</td>
+                            <td>{{ app.gig.title }}</td>
+                            <td>{{ app.proposal_text[:50] }}{% if app.proposal_text|length > 50 %}...{% endif %}</td>
+                            <td>
+                                <span class="badge 
+                                            {% if app.status == 'Applied' %}bg-secondary
+                                            {% elif app.status == 'Shortlisted' %}bg-warning text-dark
+                                            {% elif app.status == 'Rejected' %}bg-danger
+                                            {% elif app.status == 'Hired' %}bg-success
+                                            {% endif %}">
+                                    {{ app.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <form method="post" action="{{ url_for('client.update_application', app_id=app.id) }}"
+                                    class="d-inline">
+                                    <select name="status" class="form-select form-select-sm d-inline-block"
+                                        style="width: auto;">
+                                        <option value="Applied" {% if app.status=='Applied' %}selected{% endif %}>
+                                            Applied</option>
+                                        <option value="Shortlisted" {% if app.status=='Shortlisted' %}selected{% endif
+                                            %}>Shortlisted</option>
+                                        <option value="Rejected" {% if app.status=='Rejected' %}selected{% endif %}>
+                                            Rejected</option>
+                                        <option value="Hired" {% if app.status=='Hired' %}selected{% endif %}>Hired
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                No applications received yet.
+            </div>
+            {% endif %}
+        </main>
+    </div>
+</div>
+{% endblock %}

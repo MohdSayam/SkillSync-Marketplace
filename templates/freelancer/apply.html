@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Apply to Gig{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_freelancer.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h2>Apply to Gig</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">{{ gig.title }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ gig.description }}</p>
+                            <hr>
+                            <p class="mb-1"><strong>Budget:</strong> ₹{{ gig.budget }}</p>
+                            <p class="mb-1"><strong>Client:</strong> {{ gig.client.company_name }}</p>
+                            <p class="mb-0"><strong>Industry:</strong> {{ gig.client.industry }}</p>
+                        </div>
+                    </div>
+
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h5 class="mb-0">Submit Your Proposal</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label class="form-label" for="proposal_text">Your Proposal</label>
+                                    <textarea name="proposal_text" id="proposal_text" class="form-control" rows="6"
+                                        placeholder="Explain why you're the right fit for this gig. Include your relevant experience, approach to the project, and timeline..."
+                                        required></textarea>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                                    <a href="{{ url_for('freelancer.gigs') }}"
+                                        class="btn btn-outline-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

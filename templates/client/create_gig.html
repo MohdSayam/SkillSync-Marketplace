@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Create Gig{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_client.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h2>Create New Gig</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label class="form-label" for="title">Gig Title</label>
+                                    <input type="text" name="title" id="title" class="form-control"
+                                        placeholder="e.g., Website Development" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="description">Description</label>
+                                    <textarea name="description" id="description" class="form-control" rows="5"
+                                        placeholder="Describe the work you need done..." required></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="budget">Budget (₹)</label>
+                                    <input type="number" name="budget" id="budget" class="form-control"
+                                        placeholder="e.g., 50000" required>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Create Gig</button>
+                                    <a href="{{ url_for('client.gigs') }}" class="btn btn-outline-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, url_for, request, flash, redirect
+from flask import Blueprint, render_template, url_for, request, flash, redirect, session
 from controller.models import User, Client, Gig, Application
 from controller.database import db
+from controller.utils import admin_required
 import re
 from werkzeug.security import generate_password_hash
 
@@ -12,14 +13,19 @@ admin_bp = Blueprint(
 )
 
 @admin_bp.route("/dashboard")
+@admin_required
 def dashboard():
-    return render_template("admin/dashboard.html")
+    user = User.query.get(session["user_id"])
+    return render_template("admin/dashboard.html", user = user)
 
 @admin_bp.route("/clients")
+@admin_required
 def clients():
-    return render_template("admin/clients.html")
+    clients = Client.query.all()
+    return render_template("admin/clients.html", clients=clients)
 
 @admin_bp.route("/create_clients", methods = ["GET", "POST"])
+@admin_required
 def create_clients():
     if request.method == "GET":
         return render_template("admin/create_clients.html")
@@ -71,16 +77,98 @@ def create_clients():
     flash("client successfully created")
     return redirect(url_for("admin.clients"))
 
+@admin_bp.route("/clients/<int:client_id>/edit", methods=["GET","POST"])
+@admin_required
+def edit_client(client_id):
+    client = Client.query.get_or_404(client_id)
+    if request.method == "POST":
+        company_name = request.form.get("company")
+        industry = request.form.get("industry")
+        description = request.form.get("description")
+        user_name = request.form.get("username")
+        user_email = request.form.get("email")
+
+        if not company_name or not industry or not description or not user_email or not user_name:
+            flash("all fields should be filled", "warning")
+            return redirect(url_for("admin.edit_client"))
+        
+        client.company_name = company_name
+        client.industry = industry
+        client.description = description
+
+        client.user.username = user_name
+        client.user.email = user_email
+
+        db.session.commit()
+        flash("Client updated successfully", "success")
+        return redirect(url_for("admin.clients"))
+    
+    return render_template("admin/edit_client.html",client=client)
+
+@admin_bp.route("/clients/<int:client_id>/delete", methods=["POST"])
+@admin_required
+def delete_client(client_id):
+    client = Client.query.get_or_404(client_id)
+
+    db.session.delete(client.user)  # cascade deletes client + gigs
+    db.session.commit()
+
+    flash("Client deleted successfully", "success")
+    return redirect(url_for("admin.clients"))
+
+
 @admin_bp.route("/freelancers")
+@admin_required
 def freelancers():
-    return render_template("admin/freelancers.html")
+    users = User.query.filter_by(role="Freelancer").all()
+    return render_template("admin/freelancers.html", users = users)
 
 
 @admin_bp.route("/gigs")
+@admin_required
 def gigs():
-    return render_template("admin/gigs.html")
+    gigs = Gig.query.all()
+    return render_template("admin/gigs.html", gigs = gigs)
+
+@admin_bp.route("/gigs/<int:gig_id>/delete", methods=["POST"])
+@admin_required
+def delete_gig(gig_id):
+    gig = Gig.query.get_or_404(gig_id)
+    db.session.delete(gig)
+    db.session.commit()
+
+    flash("Gig deleted successfully", "success")
+    return redirect(url_for("admin.gigs"))
+
+@admin_bp.route("/gigs/<int:gig_id>/edit", methods=["GET", "POST"])
+@admin_required
+def edit_gig(gig_id):
+    gig = Gig.query.get_or_404(gig_id)
+
+    if request.method == "POST":
+        title = request.form.get("title")
+        description = request.form.get("description")
+        budget = request.form.get("budget")
+        status = request.form.get("status")
+
+        if not title or not description or not budget or not status:
+            flash("All fields are required", "danger")
+            return redirect(url_for("admin.edit_gig", gig_id=gig.id))
+
+        gig.title = title
+        gig.description = description
+        gig.budget = int(budget)
+        gig.status = status
+
+        db.session.commit()
+        flash("Gig updated successfully", "success")
+        return redirect(url_for("admin.gigs"))
+
+    return render_template("admin/edit_gig.html", gig=gig)
 
 
 @admin_bp.route("/applications")
+@admin_required
 def applications():
-    return render_template("admin/applications.html")
+    applications = Application.query.all()
+    return render_template("admin/applications.html", applications=applications)

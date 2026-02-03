@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Gig{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_client.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h2>Edit Gig</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label class="form-label" for="title">Gig Title</label>
+                                    <input type="text" name="title" id="title" class="form-control"
+                                        value="{{ gig.title }}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="description">Description</label>
+                                    <textarea name="description" id="description" class="form-control" rows="5"
+                                        required>{{ gig.description }}</textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="budget">Budget (₹)</label>
+                                    <input type="number" name="budget" id="budget" class="form-control"
+                                        value="{{ gig.budget }}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="status">Status</label>
+                                    <select name="status" id="status" class="form-select">
+                                        <option value="Active" {% if gig.status=="Active" %}selected{% endif %}>Active
+                                        </option>
+                                        <option value="Closed" {% if gig.status=="Closed" %}selected{% endif %}>Closed
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Update Gig</button>
+                                    <a href="{{ url_for('client.gigs') }}" class="btn btn-outline-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

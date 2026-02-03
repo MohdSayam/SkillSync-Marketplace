@@ -3,20 +3,45 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="d-flex flex-column justify-content-center align-items-center mb-3 p-4 container bg-info-subtle">
-    <h1 class="mb-3">Login page!</h1>
-    <div >
-        <form method="post" class="d-flex flex-column">
-            
-            <label class="text-bold fs-4 mb-1" for="email">Enter your email:</label>
-            <input type="email" name="email" placeholder="Ramesh@email.com etc." class="p-2 rounded-2 outline-none mb-2">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="mb-0"><i class="bi bi-box-arrow-in-right me-2"></i>Login</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" name="email" id="email" class="form-control"
+                                    placeholder="your@email.com" required>
+                            </div>
+                        </div>
 
-            <label class="text-bold fs-4 mb-1" for="password">Set a password:</label>
-            <input type="password" name="password" placeholder="******" class="p-2 rounded-2 outline-none mb-2">
+                        <div class="mb-4">
+                            <label class="form-label" for="password">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Enter your password" required>
+                            </div>
+                        </div>
 
-            <input type="submit" value="Login" class="rounded-2 p-2 border-none bg-primary">
-        </form>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <p class="mb-0">Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign up</a></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
-

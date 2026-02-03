@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}My Applications{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_freelancer.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="pt-3 pb-2 mb-3 border-bottom">
+                <h2>My Applications</h2>
+            </div>
+
+            {% if applications %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Gig Title</th>
+                            <th>Client</th>
+                            <th>Budget</th>
+                            <th>Proposal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in applications %}
+                        <tr>
+                            <td>{{ app.gig.title }}</td>
+                            <td>{{ app.gig.client.company_name }}</td>
+                            <td>₹{{ app.gig.budget }}</td>
+                            <td>{{ app.proposal_text[:50] }}{% if app.proposal_text|length > 50 %}...{% endif %}</td>
+                            <td>
+                                <span class="badge 
+                                            {% if app.status == 'Applied' %}bg-secondary
+                                            {% elif app.status == 'Shortlisted' %}bg-warning text-dark
+                                            {% elif app.status == 'Rejected' %}bg-danger
+                                            {% elif app.status == 'Hired' %}bg-success
+                                            {% endif %}">
+                                    {{ app.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                You haven't applied to any gigs yet. <a href="{{ url_for('freelancer.gigs') }}">Browse available
+                    gigs</a>.
+            </div>
+            {% endif %}
+        </main>
+    </div>
+</div>
+{% endblock %}

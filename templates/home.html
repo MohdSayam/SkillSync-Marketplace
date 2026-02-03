@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}SkillSync - Freelance Marketplace{% endblock %}
+
+{% block content %}
+<div class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center py-5">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Find the Perfect Talent for Your Project</h1>
+                <p class="lead mb-4">SkillSync connects businesses with skilled freelancers. Post your gig or find your
+                    next opportunity today.</p>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('auth.signup') }}" class="btn btn-light btn-lg">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Get Started
+                    </a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block text-center">
+                <i class="bi bi-people-fill" style="font-size: 15rem; opacity: 0.3;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center">
+                    <div class="card-body p-4">
+                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 80px; height: 80px;">
+                            <i class="bi bi-person-plus-fill text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Create Account</h5>
+                        <p class="card-text text-muted">Sign up as a freelancer to find work or as a client to hire
+                            talent.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center">
+                    <div class="card-body p-4">
+                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 80px; height: 80px;">
+                            <i class="bi bi-search text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Find Opportunities</h5>
+                        <p class="card-text text-muted">Browse gigs that match your skills or post jobs to find the
+                            right freelancer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center">
+                    <div class="card-body p-4">
+                        <div class="bg-info rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 80px; height: 80px;">
+                            <i class="bi bi-handshake text-white" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Get Hired</h5>
+                        <p class="card-text text-muted">Submit proposals, get shortlisted, and start working on exciting
+                            projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="mb-4">For Freelancers</h2>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Browse hundreds of gigs
+                    </li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Submit proposals with ease
+                    </li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Track your application
+                        status</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Build your portfolio</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="mb-4">For Clients</h2>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>Post gigs in minutes</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>Receive quality proposals
+                    </li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>Shortlist and hire the
+                        best</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>Manage all your projects
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-primary text-white py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Get Started?</h2>
+        <p class="lead mb-4">Join thousands of freelancers and clients on SkillSync today.</p>
+        <a href="{{ url_for('auth.signup') }}" class="btn btn-light btn-lg">
+            <i class="bi bi-rocket-takeoff me-2"></i>Sign Up Now
+        </a>
+    </div>
+</div>
+{% endblock %}

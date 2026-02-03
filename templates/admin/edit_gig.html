@@ -1,0 +1,54 @@
+{% extends "admin/dashboard.html" %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+
+    {% include "components/sidebar_admin.html" %}
+
+    <main class="col-md-9 col-lg-10 px-4">
+      <h2 class="mt-3 mb-4">Edit Gig</h2>
+
+      <form method="post" class="w-50">
+
+        <label class="form-label">Title</label>
+        <input type="text"
+               name="title"
+               value="{{ gig.title }}"
+               class="form-control mb-3">
+
+        <label class="form-label">Description</label>
+        <textarea name="description"
+                  class="form-control mb-3"
+                  rows="4">{{ gig.description }}</textarea>
+
+        <label class="form-label">Budget</label>
+        <input type="number"
+               name="budget"
+               value="{{ gig.budget }}"
+               class="form-control mb-3">
+
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select mb-3">
+          <option value="Active" {% if gig.status == "Active" %}selected{% endif %}>
+            Active
+          </option>
+          <option value="Closed" {% if gig.status == "Closed" %}selected{% endif %}>
+            Closed
+          </option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">
+          Update Gig
+        </button>
+
+      </form>
+
+      <a href="{{ url_for('admin.gigs') }}" class="d-block mt-3">
+        ← Back to Gigs
+      </a>
+    </main>
+
+  </div>
+</div>
+{% endblock %}

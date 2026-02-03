@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}My Gigs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_client.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2>My Gigs</h2>
+                <a href="{{ url_for('client.create_gig') }}" class="btn btn-primary">Create New Gig</a>
+            </div>
+
+            {% if gigs %}
+            <div class="row">
+                {% for gig in gigs %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ gig.title }}</h5>
+                            <p class="card-text">{{ gig.description[:100] }}{% if gig.description|length > 100 %}...{%
+                                endif %}</p>
+                            <p class="mb-1"><strong>Budget:</strong> ₹{{ gig.budget }}</p>
+                            <p class="mb-1">
+                                <strong>Status:</strong>
+                                <span
+                                    class="badge {% if gig.status == 'Active' %}bg-success{% else %}bg-secondary{% endif %}">
+                                    {{ gig.status }}
+                                </span>
+                            </p>
+                            <p class="mb-2"><strong>Applications:</strong> {{ gig.applications|length }}</p>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ url_for('client.edit_gig', gig_id=gig.id) }}"
+                                    class="btn btn-sm btn-outline-primary">Edit</a>
+                                <form method="post" action="{{ url_for('client.delete_gig', gig_id=gig.id) }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                You haven't created any gigs yet. <a href="{{ url_for('client.create_gig') }}">Create your first
+                    gig</a>.
+            </div>
+            {% endif %}
+        </main>
+    </div>
+</div>
+{% endblock %}

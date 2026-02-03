@@ -1,11 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>You are on client dashboard</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Client Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "components/sidebar_client.html" %}
+
+        <main class="col-md-9 col-lg-10 px-4">
+            <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2>Dashboard</h2>
+                <span class="text-muted">Welcome, {{ client.company_name }}</span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Gigs</h5>
+                            <p class="card-text display-4">{{ total_gigs }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-success h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Active Gigs</h5>
+                            <p class="card-text display-4">{{ active_gigs }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-info h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Applications Received</h5>
+                            <p class="card-text display-4">{{ total_applications }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="{{ url_for('client.create_gig') }}" class="btn btn-primary">Create New Gig</a>
+                <a href="{{ url_for('client.gigs') }}" class="btn btn-outline-primary">View All Gigs</a>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
